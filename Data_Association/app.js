@@ -27,6 +27,7 @@ app.get("/create/post", async (req, res) => {
     await user.save();
     res.send({post, user});
 })
+
 app.listen(3000, () => {
     console.log("server is running on port 3000");
 })
