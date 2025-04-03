@@ -15,9 +15,11 @@ const jwt = require('jsonwebtoken');
 app.get("/", (req, res) => {
     res.render("index");
 })
+
 app.get("/login", (req, res) => {
     res.render("login");
 })
+
 app.get("/profile", isLoggedIn, async (req, res) => {
     console.log(req.user);
     
@@ -67,10 +69,14 @@ app.post("/login", async (req, res) => {
         }
     })
 })
+
+
 app.get("/logout", (req, res) => {
     res.clearCookie("token");
     res.redirect("/login");
 })
+
+
 function isLoggedIn(req, res, next) {
     if(!req.cookies.token) {
         return res.send("You must be logged in");
@@ -83,6 +89,9 @@ function isLoggedIn(req, res, next) {
         return res.send("Invalid token, please login again");
     }
 }
+
+
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
+
