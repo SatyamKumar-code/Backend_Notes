@@ -21,9 +21,24 @@ app.get("/login", (req, res) => {
 })
 
 app.get("/profile", isLoggedIn, async (req, res) => {
-    console.log(req.user);
-    
-    res.render("login");
+    let user = await userModel.findOne({ email: req.user.email }).populate("post");
+    if(!user) {
+        return res.status(500).send("user not found");
+    }
+    res.render("profile", { user });
+});
+
+app.post("/post", isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ email: req.user.email });
+    let { content } = req.body;
+
+    let post = await postModel.create({
+        user: user._id,
+        content
+    });
+    user.post.push(post._id);
+    await user.save();
+    res.redirect("/profile");
 })
 
 app.post("/register", async (req, res) => {
@@ -63,7 +78,7 @@ app.post("/login", async (req, res) => {
         if(result){
             let token = jwt.sign({email: email, user: user._id}, "secret");
             res.cookie("token", token);
-            res.status(200).send("login successful");
+            res.status(200).redirect("/profile");
         } else {
             res.redirect("/login");
         }
@@ -79,7 +94,7 @@ app.get("/logout", (req, res) => {
 
 function isLoggedIn(req, res, next) {
     if(!req.cookies.token) {
-        return res.send("You must be logged in");
+        return res.redirect("login");
     }
     try {
         let data = jwt.verify(req.cookies.token, "secret");
