@@ -104,8 +104,6 @@ function isLoggedIn(req, res, next) {
         return res.send("Invalid token, please login again");
     }
 }
-
-
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
 });
