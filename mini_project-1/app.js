@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const jwt = require('jsonwebtoken');
 
-app.get("/", (req, res) => {
+app.get("/signup", (req, res) => {
     res.render("index");
 })
 
@@ -20,7 +20,7 @@ app.get("/login", (req, res) => {
     res.render("login");
 })
 
-app.get("/profile", isLoggedIn, async (req, res) => {
+app.get("/", isLoggedIn, async (req, res) => {
     let user = await userModel.findOne({ email: req.user.email }).populate("post");
     if(!user) {
         return res.status(500).send("user not found");
@@ -38,7 +38,7 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
     }
 
     await post.save();
-    res.redirect("/profile");
+    res.redirect("/");
 });
 
 app.get("/edit/:id", isLoggedIn, async (req, res) => {
@@ -49,7 +49,7 @@ app.get("/edit/:id", isLoggedIn, async (req, res) => {
 
 app.post("/update/:id", isLoggedIn, async (req, res) => {
     let post = await postModel.findOneAndUpdate({ _id: req.params.id }, { content: req.body.content });
-    res.redirect("/profile");
+    res.redirect("/");
 });
 
 app.post("/post", isLoggedIn, async (req, res) => {
@@ -62,7 +62,7 @@ app.post("/post", isLoggedIn, async (req, res) => {
     });
     user.post.push(post._id);
     await user.save();
-    res.redirect("/profile");
+    res.redirect("/");
 })
 
 app.post("/register", async (req, res) => {
@@ -102,7 +102,7 @@ app.post("/login", async (req, res) => {
         if(result){
             let token = jwt.sign({email: email, user: user._id}, "secret");
             res.cookie("token", token);
-            res.status(200).redirect("/profile");
+            res.status(200).redirect("/");
         } else {
             res.redirect("/login");
         }

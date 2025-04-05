@@ -7,7 +7,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <div class="w-full min h-screen bg-zinc-900 text-white p-10">
+    <div class="w-full min h-screen bg-zinc-900 text-white px-10 py-5">
+        <div class="w-full flex justify-end">
+            <a class="bg-yellow-500 rounded-md px-3 py-2 text-sm mb-1" href="/signup">Sign UP</a>
+        </div>
         <form action="/login" method="post">
             <h1 class="text-3xl pb-1">Login your Account</h1>
             <input class="py-2 px-3 outline-none bg-transparent border-2 border-zinc-800 rounded-md" type="email" placeholder="email" name="email">
