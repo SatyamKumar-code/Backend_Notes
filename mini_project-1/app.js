@@ -16,6 +16,11 @@ app.get("/signup", (req, res) => {
     res.render("index");
 })
 
+app.get("/test", isLoggedIn, async (req, res) => {
+    let user = await userModel.findOne({ email: req.user.email }).populate("post");
+    res.render("test" , { user });
+})
+
 app.get("/login", (req, res) => {
     res.render("login");
 })

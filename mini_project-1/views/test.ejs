@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="w-full h-screen text-white  bg-zinc-900 px-10 py-5">
+        <div class="w-full flex justify-end">
+            <a class="bg-red-500 rounded-md px-3 py-2 text-sm mb-5 inline-block" href="/logout">logout</a>
+        </div>
+        <h1 class="text-3xl"><span class="font-light">Hello </span><%=user.name %></h1>
+        <h5 class="mb-5">Upload File </h5>
+        <form action="/upload" method="post" autocomplete="off" enctype="multipart/form-data" class="flex flex-col gap-3">
+            <input type="file" name="image">
+            <input class="px-3 py-2 w-40 bg-blue-500 block rounded-md mt-2" type="submit" value="Upload your file" >
+        </form>
+    </div>
+</body>
+</html>
