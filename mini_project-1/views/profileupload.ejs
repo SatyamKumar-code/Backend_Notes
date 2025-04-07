@@ -11,13 +11,14 @@
         <div class="w-full flex justify-end">
             <a class="bg-red-500 rounded-md px-3 py-2 text-sm mb-5 inline-block" href="/logout">logout</a>
         </div>
+        
         <div class="flex items-start gap-3">
             <div class="w-10 h-10 rounded-md overflow-hidden">
                 <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>" alt="">
             </div>
             <h1 class="text-3xl"><span class="font-light">Hello </span><%=user.name %>👋</h1>
         </div>
-        
+
         <h5 class="mb-5">Change your profile pic </h5>
         <form action="/profile/upload" method="post" autocomplete="off" enctype="multipart/form-data">
             <input type="file" name="image">
