@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 4,
     },
+    profilepic: {
+        type: String,
+        default: "default.jpg"
+    },
     post: [
         {
             type: mongoose.Schema.Types.ObjectId,
