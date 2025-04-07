@@ -16,35 +16,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './public/images/uploads')
-    },
-    filename: function (req, file, cb) {
-        crypto.randomBytes(12, function(err, bytes) {
-            const fn = bytes.toString("hex") + path.extname(file.originalname);
-            cb(null, fn);
-        })
-        
-    }
-})
-
 const upload = multer({ storage: storage })
 
 app.get("/signup", (req, res) => {
     res.render("index");
 })
 
-app.get("/test", isLoggedIn, async (req, res) => {
-    let user = await userModel.findOne({ email: req.user.email }).populate("post");
-    res.render("test" , { user });
-})
-
-app.post("/upload", isLoggedIn,upload.single("image") , async (req, res) => {
-    console.log(req.file);
-    
-    res.redirect("/");
-});
 
 app.get("/login", (req, res) => {
     res.render("login");
