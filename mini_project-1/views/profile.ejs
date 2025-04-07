@@ -12,8 +12,11 @@
             <a class="bg-red-500 rounded-md px-3 py-2 text-sm mb-5 inline-block" href="/logout">logout</a>
         </div>
         <div class="flex items-start gap-3">
-            <div class="w-10 h-10 rounded-md">
-                <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>" alt="">
+            <div class="w-10 h-10 rounded-md overflow-hidden">
+                <a class="cursor-pointer" href="/profile/upload">
+                    <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profilepic %>" alt="">
+                </a>
+                
             </div>
             <h1 class="text-3xl"><span class="font-light">Hello </span><%=user.name %>👋</h1>
         </div>
