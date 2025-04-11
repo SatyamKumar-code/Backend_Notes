@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodb://127.0.0.1:27017/E-comerce");
+
 
 const ownerSchema = new mongoose.Schema({
     fullname: {
         type: String,
-        required: true
+        required: true,
+        minlength: 3,
+        trim: true
     },
     email: {
         type: String,
@@ -30,4 +32,4 @@ const ownerSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("user", ownerSchema);
+module.exports = mongoose.model("owner", ownerSchema);
